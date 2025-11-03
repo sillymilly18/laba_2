@@ -1,0 +1,3 @@
+/Users/milamalchikova/crm_light/cmake-build-debug/CMakeFiles/crm_light.dir
+/Users/milamalchikova/crm_light/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/milamalchikova/crm_light/cmake-build-debug/CMakeFiles/rebuild_cache.dir
