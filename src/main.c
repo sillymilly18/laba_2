@@ -13,7 +13,7 @@ typedef enum {
     MENU_EXIT
 } RootMenu;
 
-static void print_root_menu(void) {
+static void print_root_menu() {
     printf("\n===== CRM Light =====\n");
     printf("1) Клиенты\n");
     printf("2) Сделки\n");
@@ -21,7 +21,6 @@ static void print_root_menu(void) {
     printf("4) Выход\n");
 }
 
-//фильтры
 static void filters_menu(const ClientList *clients, const DealList *deals) {
     while (true) {
         printf("\n== Фильтры ==\n");
@@ -31,22 +30,26 @@ static void filters_menu(const ClientList *clients, const DealList *deals) {
         int ch; in_read_int("Выбор: ", 1, 3, &ch);      //хранение выбора
 
         if (ch == 1) {
-            int cid; in_read_int("ID клиента: ", 1, 1000000000, &cid);
-            if (cl_index_by_id(clients, cid) < 0) printf("Клиент не найден.\n");
-            else dl_print_by_client(deals, cid);
+            int cid;
+            in_read_int("ID клиента: ", 1, 1000000000, &cid);
+
+            client_index_by_id(clients, cid) < 0 ? printf("Клиент не найден.\n") : print_client_deals(deals, cid);
         } else if (ch == 2) {
-            DealStatus st = (DealStatus)read_status();
-            dl_print_by_status(deals, st);
-        } else return;
+            const DealStatus st = (DealStatus)read_status();
+
+            print_deals_by_status(deals, st);
+        } else {
+            return;
+        };
     }
 }
 
 int main(void) {
     ClientList clients;
-    cl_init(&clients);
+    init_clients_list(&clients);
 
     DealList   deals;
-    dl_init(&deals);
+    init_deals_list(&deals);
 
     while (true) {
         print_root_menu();
@@ -54,9 +57,9 @@ int main(void) {
         in_read_int("Выбор: ", 1, 4, &choice);
 
         if (choice == MENU_CLIENTS) {
-            clients_menu(&clients, &deals);
+            print_clients_menu(&clients, &deals);
         } else if (choice == MENU_DEALS) {
-            deals_menu(&clients, &deals);
+            print_deals_menu(&clients, &deals);
         } else if (choice == MENU_FILTERS) {
             filters_menu(&clients, &deals);
         } else if (choice == MENU_EXIT) {
@@ -64,7 +67,7 @@ int main(void) {
         }
     }
 
-    dl_free(&deals);
-    cl_free(&clients);
+    free_deals_list(&deals);
+    free_clients_list(&clients);
     printf("📁 Память очищена. Завершение программы.\n");
 }

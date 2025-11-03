@@ -31,7 +31,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/ar"
+			"value" : "/usr/bin/ar"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/milamalchikova/crm_light/cmake-build-debug"
+			"value" : "/Users/defany/projects/silly_milly/laba_2/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -67,7 +67,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "3"
+			"value" : "4"
 		},
 		{
 			"name" : "CMAKE_CACHE_MINOR_VERSION",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "31"
+			"value" : "0"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "6"
+			"value" : "2"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -115,7 +115,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake"
+			"value" : "/Users/defany/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cpack"
+			"value" : "/Users/defany/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cpack"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -139,7 +139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/ctest"
+			"value" : "/Users/defany/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/ctest"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER",
@@ -155,7 +155,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/cc"
+			"value" : "/usr/bin/cc"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -399,7 +399,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/milamalchikova/crm_light/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/defany/projects/silly_milly/laba_2/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -459,7 +459,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/milamalchikova/crm_light"
+			"value" : "/Users/defany/projects/silly_milly/laba_2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -503,7 +503,19 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/ld"
+			"value" : "/usr/bin/ld"
+		},
+		{
+			"name" : "CMAKE_LIST_FILE_NAME",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Name of CMakeLists files to read"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "CMakeLists.txt"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
@@ -515,7 +527,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja"
+			"value" : "/Users/defany/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -611,7 +623,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/nm"
+			"value" : "/usr/bin/nm"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -655,7 +667,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/objdump"
+			"value" : "/usr/bin/objdump"
 		},
 		{
 			"name" : "CMAKE_OSX_ARCHITECTURES",
@@ -690,8 +702,8 @@
 					"value" : "The product will be built against the headers and libraries located inside the indicated SDK."
 				}
 			],
-			"type" : "PATH",
-			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX26.0.sdk"
+			"type" : "STRING",
+			"value" : ""
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -755,7 +767,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/ranlib"
+			"value" : "/usr/bin/ranlib"
 		},
 		{
 			"name" : "CMAKE_READELF",
@@ -783,7 +795,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.31"
+			"value" : "/Users/defany/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-4.0"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -991,7 +1003,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/usr/bin/strip"
+			"value" : "/usr/bin/strip"
 		},
 		{
 			"name" : "CMAKE_TAPI",
@@ -1047,7 +1059,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/milamalchikova/crm_light/cmake-build-debug"
+			"value" : "/Users/defany/projects/silly_milly/laba_2/cmake-build-debug"
 		},
 		{
 			"name" : "crm_light_IS_TOP_LEVEL",
@@ -1071,7 +1083,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/milamalchikova/crm_light"
+			"value" : "/Users/defany/projects/silly_milly/laba_2"
 		}
 	],
 	"kind" : "cache",

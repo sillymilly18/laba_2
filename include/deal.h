@@ -29,10 +29,14 @@ typedef struct DealList {
 } DealList;
 
 /* Инициализация/очистка */
-void dl_init(DealList *dl);
-void dl_free(DealList *dl);
-
-int ensure_deal_list_capacity(DealList *list, const size_t needed);
+void init_deals_list(DealList *dl);
 void free_deal(const Deal *d);
-const char* st_name(const DealStatus s);
+void free_deals_list(DealList *dl);
+
+// Функция для выделения памяти под массив сделок
+int ensure_deal_list_capacity(DealList *list, size_t needed);
+
+// Функция для конвертации enum статуса сделки в строку
+const char* st_name(DealStatus s);
+// Чтение статуса из консоли
 int read_status(void);

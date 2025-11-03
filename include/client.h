@@ -21,8 +21,9 @@ typedef struct ClientList {
 } ClientList;
 
 // Инициализация и очистка памяти
-void cl_init(ClientList *list);
-void cl_free(ClientList *list);
-
-int ensure_client_list_capacity(ClientList *list, size_t needed);
+void init_clients_list(ClientList *list);
+void free_clients_list(ClientList *list);
 void free_client(const Client *c);
+
+// Функция для выделения памяти под массив клиентов
+int ensure_client_list_capacity(ClientList *list, size_t needed);

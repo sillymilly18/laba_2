@@ -7,9 +7,8 @@
 #include "input.h"
 #include "utils.h"
 
-static int cl_add(ClientList *list, const char *name, const char *company, const char *email, const char *phone, const char *status, int *out_id) {
+int client_add(ClientList *list, const char *name, const char *company, const char *email, const char *phone, const char *status, int *out_id) {
     if (!ensure_client_list_capacity(list, list->count + 1)) return 0;
-
 
     const Client c = {
         .id = list->next_id++,
@@ -31,7 +30,7 @@ static int cl_add(ClientList *list, const char *name, const char *company, const
     return 1;
 }
 
-int cl_index_by_id(const ClientList *list, int id) {
+int client_index_by_id(const ClientList *list, int id) {
     for (size_t i = 0; i < list->count; i++) {
         if (list->data[i].id == id) return (int)i;
     }
@@ -39,7 +38,7 @@ int cl_index_by_id(const ClientList *list, int id) {
     return -1;
 }
 
-static int cl_remove_at(ClientList *list, const size_t index) {
+int client_remove_at(ClientList *list, const size_t index) {
     if (index >= list->count) return 0;
 
     const Client *client = &list->data[index];
@@ -54,8 +53,8 @@ static int cl_remove_at(ClientList *list, const size_t index) {
     return 1;
 }
 
-static int cl_update_at(ClientList *list, size_t index, const char *new_name, const char *new_company, const char *new_email, const char *new_phone, const char *new_status) {
-    if (index >= list->count) return 0;      //когда пользователь выбрал несуществующего клиента.
+int client_update_at(ClientList *list, size_t index, const char *new_name, const char *new_company, const char *new_email, const char *new_phone, const char *new_status) {
+    if (index >= list->count) return 0;      // когда пользователь выбрал несуществующего клиента.
 
     Client *c = &list->data[index];
 
@@ -92,7 +91,7 @@ static int cl_update_at(ClientList *list, size_t index, const char *new_name, co
     return 1;
 }
 
-static void client_print(const ClientList *list, size_t index) {
+void print_client(const ClientList *list, size_t index) {
     if (index >= list->count) {
      return;
     }
@@ -102,7 +101,7 @@ static void client_print(const ClientList *list, size_t index) {
     printf("Имя: %s\nКомпания: %s\nEmail: %s\nТелефон: %s\nСтатус: %s\n", client.name, client.company, client.email, client.phone, client.status);
 }
 
-static void cl_print_all(const ClientList *list) {
+void print_all_clients(const ClientList *list) {
     if (list->count == 0) {
         printf("\n[База клиентов пуста]\n");
 
@@ -111,11 +110,11 @@ static void cl_print_all(const ClientList *list) {
 
     printf("\n📁 Все клиенты:\n");
     for (size_t i = 0; i < list->count; i++) {
-        client_print(list, i);
+        print_client(list, i);
     }
 }
 
-void clients_menu(ClientList *clients, DealList *deals) {
+void print_clients_menu(ClientList *clients, DealList *deals) {
     while (true) {
         printf("\n== Клиенты ==\n");
         printf("1) Добавить\n");
@@ -146,7 +145,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
             in_read_line(&status);
 
             int id;
-            if (cl_add(clients, name, company, email, phone, status, &id)) {
+            if (client_add(clients, name, company, email, phone, status, &id)) {
                 printf("Клиент добавлен (ID: %d)\n", id);
             } else {
                 printf("Ошибка добавления\n");
@@ -163,7 +162,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
             int id;
             in_read_int("ID клиента: ", 1, 1000000000, &id);
 
-            int idx = cl_index_by_id(clients, id);
+            int idx = client_index_by_id(clients, id);
             if (idx < 0) {
                 printf("Клиент не найден.\n");
 
@@ -171,7 +170,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
             }
 
             printf("К удалению:\n");
-            client_print(clients, (size_t)idx);
+            print_client(clients, (size_t)idx);
 
             if (!in_ask_yes_no("Удалить клиента и все его сделки?")) {
                 printf("Отменено.\n");
@@ -181,7 +180,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
 
             size_t removed = dl_remove_by_client(deals, id);
 
-            cl_remove_at(clients, (size_t)idx);
+            client_remove_at(clients, (size_t)idx);
             printf("Клиент удалён. Каскадом удалено сделок: %zu\n", removed);
         } else if (ch == 3) {
             if (clients->count == 0) {
@@ -193,7 +192,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
             int id;
             in_read_int("ID клиента: ", 1, 1000000000, &id);
 
-            int idx = cl_index_by_id(clients, id);
+            int idx = client_index_by_id(clients, id);
             if (idx < 0) {
                 printf("Клиент не найден.\n");
 
@@ -227,7 +226,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
                 in_read_line(&status);
             }
 
-            cl_update_at(clients, (size_t)idx, name, company, email, phone, status);
+            client_update_at(clients, (size_t)idx, name, company, email, phone, status);
             printf("Обновлено.\n");
 
             free(name); free(company); free(email); free(phone); free(status);
@@ -235,11 +234,11 @@ void clients_menu(ClientList *clients, DealList *deals) {
             int id;
             in_read_int("ID клиента: ", 1, 1000000000, &id);
 
-            int idx = cl_index_by_id(clients, id);
+            int idx = client_index_by_id(clients, id);
 
-            idx < 0 ? printf("Клиент не найден.\n") : client_print(clients, (size_t)idx);
+            idx < 0 ? printf("Клиент не найден.\n") : print_client(clients, (size_t)idx);
         } else if (ch == 5) {
-            cl_print_all(clients);
+            print_all_clients(clients);
         } else { // 6
             return;
         }
@@ -247,7 +246,7 @@ void clients_menu(ClientList *clients, DealList *deals) {
 }
 
 
-static int dl_add(DealList *dl, int client_id, const char *title,
+int client_deal_add(DealList *dl, int client_id, const char *title,
            const char *description, double amount, DealStatus st, int *out_id)
 {
   if(!ensure_deal_list_capacity(dl, dl->count+1)) return 0;
@@ -273,7 +272,7 @@ static int dl_add(DealList *dl, int client_id, const char *title,
   return 1;
 }
 
-static int dl_index_by_id(const DealList *dl, int id){
+int deal_index_by_id(const DealList *dl, int id){
   for(size_t i=0;i<dl->count;++i) {
     if(dl->data[i].id==id) {
       return (int)i;
@@ -283,7 +282,7 @@ static int dl_index_by_id(const DealList *dl, int id){
   return -1;
 }
 
-static int dl_remove_at(DealList *dl, const size_t index) {
+int deal_remove_at(DealList *dl, const size_t index) {
   if(index>=dl->count) {
     return 0;
   }
@@ -300,7 +299,7 @@ static int dl_remove_at(DealList *dl, const size_t index) {
   return 1;
 }
 
-static int dl_update_at(const DealList *dl, const size_t index,
+int deal_update_at(const DealList *dl, const size_t index,
                  const int *new_client_id, const char *new_title,
                  const char *new_description, const double *new_amount,
                  const DealStatus *new_status) {
@@ -341,7 +340,7 @@ static int dl_update_at(const DealList *dl, const size_t index,
   return 1;
 }
 
-static void dl_print_one(const DealList *dl, size_t index){
+void print_deal(const DealList *dl, size_t index){
   if(index>=dl->count) {
     return;
   }
@@ -352,18 +351,18 @@ static void dl_print_one(const DealList *dl, size_t index){
          d->id, d->client_id, d->title, d->amount, st_name(d->status), d->description);
 }
 
-void dl_print_all(const DealList *dl){
+void print_all_deals(const DealList *dl){
   if(dl->count == 0) {
     printf("[сделок нет]\n");
     return;
   }
 
   for(size_t i = 0; i < dl->count; ++i){
-    dl_print_one(dl, i);
+    print_deal(dl, i);
   }
 }
 
-void dl_print_by_client(const DealList *dl, int client_id) {
+void print_client_deals(const DealList *dl, int client_id) {
   bool found = false;
 
   for(size_t i = 0; i < dl->count; ++i) {
@@ -371,7 +370,7 @@ void dl_print_by_client(const DealList *dl, int client_id) {
       continue;
     }
 
-    dl_print_one(dl,i);
+    print_deal(dl,i);
 
     found=true;
   }
@@ -379,7 +378,7 @@ void dl_print_by_client(const DealList *dl, int client_id) {
   if(!found) printf("[для клиента %d сделок нет]\n", client_id);
 }
 
-void dl_print_by_status(const DealList *dl, DealStatus st){
+void print_deals_by_status(const DealList *dl, DealStatus st){
   bool found = false;
 
   for(size_t i=0;i<dl->count;++i) {
@@ -387,7 +386,7 @@ void dl_print_by_status(const DealList *dl, DealStatus st){
       continue;
     }
 
-    dl_print_one(dl,i);
+    print_deal(dl,i);
 
     found = true;
   }
@@ -401,7 +400,7 @@ size_t dl_remove_by_client(DealList *dl, int client_id){
   size_t removed=0;
   for(size_t i = 0; i<dl->count;){
     if(dl->data[i].client_id == client_id) {
-      dl_remove_at(dl,i);
+      deal_remove_at(dl,i);
       ++removed;
     } else {
       ++i;
@@ -421,7 +420,7 @@ void deals_add(const ClientList *clients, DealList *deals) {
   int cid;
   in_read_int("ID клиента: ", 1, 1000000000, &cid);
 
-  if (cl_index_by_id(clients, cid) < 0) {
+  if (client_index_by_id(clients, cid) < 0) {
     printf("Клиент не найден.\n");
 
     return;
@@ -442,7 +441,7 @@ void deals_add(const ClientList *clients, DealList *deals) {
 
   DealStatus st = (DealStatus)read_status();
   int id;
-  dl_add(deals, cid, title ? title : "", desc ? desc : "", amount, st, &id) ? printf("Сделка добавлена (ID=%d)\n", id) :  printf("Ошибка добавления сделки\n");
+  client_deal_add(deals, cid, title ? title : "", desc ? desc : "", amount, st, &id) ? printf("Сделка добавлена (ID=%d)\n", id) :  printf("Ошибка добавления сделки\n");
 
   free(title);
   free(desc);
@@ -458,7 +457,7 @@ void deals_change_status(const DealList *deals) {
   int did;
   in_read_int("ID сделки: ", 1, 1000000000, &did);
 
-  int idx = dl_index_by_id(deals, did);
+  int idx = deal_index_by_id(deals, did);
   if (idx < 0) {
     printf("Не найдена.\n");
 
@@ -466,7 +465,7 @@ void deals_change_status(const DealList *deals) {
   }
 
   const DealStatus st = (DealStatus)read_status();
-  printf(dl_update_at(deals, (size_t)idx, NULL, NULL, NULL, NULL, &st) ?  "Статус обновлён\n" : "Ошибка\n");
+  printf(deal_update_at(deals, (size_t)idx, NULL, NULL, NULL, NULL, &st) ?  "Статус обновлён\n" : "Ошибка\n");
 }
 
 void deals_edit(const DealList *deals, const ClientList *clients) {
@@ -479,7 +478,7 @@ void deals_edit(const DealList *deals, const ClientList *clients) {
   int did;
   in_read_int("ID сделки: ", 1, 1000000000, &did);
 
-  int idx = dl_index_by_id(deals, did);
+  int idx = deal_index_by_id(deals, did);
   if (idx < 0) {
     printf("Не найдена.\n");
 
@@ -497,7 +496,7 @@ void deals_edit(const DealList *deals, const ClientList *clients) {
 
     if (in_ask_yes_no("Сменить клиента?")) {
       in_read_int("Новый client_id: ", 1, 1000000000, &new_cid);
-      if (cl_index_by_id(clients, new_cid) < 0) {
+      if (client_index_by_id(clients, new_cid) < 0) {
         printf("Такого клиента нет.\n");
         return;
       }
@@ -530,7 +529,7 @@ void deals_edit(const DealList *deals, const ClientList *clients) {
     st_ptr=&st;
   }
 
-  printf(dl_update_at(deals, (size_t)idx, cid_ptr, title, desc, amount_ptr, st_ptr) ? "Сделка обновлена\n" : "Ошибка\n");
+  printf(deal_update_at(deals, (size_t)idx, cid_ptr, title, desc, amount_ptr, st_ptr) ? "Сделка обновлена\n" : "Ошибка\n");
 
   free(title);
   free(desc);
@@ -545,7 +544,7 @@ void deals_delete(DealList *deals) {
 
   int did; in_read_int("ID сделки: ", 1, 1000000000, &did);
 
-  int idx = dl_index_by_id(deals, did);
+  int idx = deal_index_by_id(deals, did);
 
   if (idx < 0) {
     printf("Не найдена.\n");
@@ -554,11 +553,11 @@ void deals_delete(DealList *deals) {
   }
 
   if (in_ask_yes_no("Удалить сделку?")) {
-    printf(dl_remove_at(deals, (size_t)idx) ? "Удалена\n" : "Ошибка\n");
+    printf(deal_remove_at(deals, (size_t)idx) ? "Удалена\n" : "Ошибка\n");
   }
 }
 
-void deals_menu(ClientList *clients, DealList *deals) {
+void print_deals_menu(ClientList *clients, DealList *deals) {
     while (true) {
       printf("\n== Сделки ==\n");
       printf("1) Добавить\n");
@@ -584,7 +583,7 @@ void deals_menu(ClientList *clients, DealList *deals) {
           deals_delete(deals);
           continue;
         case 5:
-          dl_print_all(deals);
+          print_all_deals(deals);
           continue;
         default:
           return;
