@@ -32,5 +32,5 @@ void print_deal(const DealList *dl, size_t index);
 void print_all_deals(const DealList *dl);
 void print_client_deals(const DealList *dl, int client_id);
 void print_deals_by_status(const DealList *dl, DealStatus st);
-void print_deals_menu(ClientList *clients, DealList *deals);
+void print_deals_menu(const ClientList *clients, DealList *deals);
 

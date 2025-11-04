@@ -27,3 +27,6 @@ void free_client(const Client *c);
 
 // Функция для выделения памяти под массив клиентов
 int ensure_client_list_capacity(ClientList *list, size_t needed);
+
+Client *client_by_index(const ClientList *clients_list, size_t index);
+size_t clients_count(const ClientList *clients_list);

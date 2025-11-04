@@ -40,3 +40,6 @@ int ensure_deal_list_capacity(DealList *list, size_t needed);
 const char* st_name(DealStatus s);
 // Чтение статуса из консоли
 int read_status(void);
+
+Deal *deal_by_index(const DealList *dl, size_t index);
+size_t deals_count(const DealList *dl);

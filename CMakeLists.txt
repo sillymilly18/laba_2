@@ -9,10 +9,11 @@ include_directories(include)
 # 📁 указываем все .c-файлы проекта
 add_executable(crm_light
         src/main.c
-        src/client.c
         src/input.c
-        src/deal.c
+        src/repository/deal.c
         src/utils.c
         src/console.c
-        include/utils.h      # ← новый модуль
+        include/utils.h
+        src/repository/client.c
+        # ← новый модуль
 )
